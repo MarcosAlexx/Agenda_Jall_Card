@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Meus Contatos')}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+
+<div class="container">
+    <div class="header-section">
+        <h1>Meus Contatos</h1>
+        <a th:href="@{/contatos/novo}" class="btn btn-primary">Novo Contato</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <div class="search-box">
+        <form th:action="@{/contatos}" method="get">
+            <input type="text" name="nome" placeholder="Buscar por nome..." th:value="${nome}">
+            <button type="submit" class="btn">Buscar</button>
+        </form>
+    </div>
+
+    <div class="contatos-list" th:if="${!contatos.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Data de Nascimento</th>
+                    <th>Telefones</th>
+                    <th>Parentesco</th>
+                    <th>Acoes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="contato : ${contatos}">
+                    <td th:text="${contato.nome}"></td>
+                    <td th:text="${contato.sobrenome}"></td>
+                    <td th:text="${#temporals.format(contato.dataNascimento, 'dd/MM/yyyy')}"></td>
+                    <td>
+                        <span th:each="tel, stat : ${contato.telefones}">
+                            <span th:text="${tel.numero}"></span>
+                            <span th:if="${tel.tipo}" th:text="'(' + ${tel.tipo.descricao} + ')'"></span>
+                            <span th:if="${!stat.last}">, </span>
+                        </span>
+                    </td>
+                    <td th:text="${contato.grauParentesco ?: '-'}"></td>
+                    <td class="actions">
+                        <a th:href="@{/contatos/{id}/editar(id=${contato.id})}" class="btn btn-small">Editar</a>
+                        <form th:action="@{/contatos/{id}/deletar(id=${contato.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-small btn-danger" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="empty-state" th:if="${contatos.isEmpty()}">
+        <p>Nenhum contato encontrado.</p>
+        <a th:href="@{/contatos/novo}" class="btn btn-primary">Adicionar Primeiro Contato</a>
+    </div>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

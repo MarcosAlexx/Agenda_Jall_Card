@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Agenda</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<nav th:fragment="nav">
+    <div class="navbar">
+        <a href="/" class="logo">Agenda</a>
+        <div class="nav-links" th:if="${#authorization.expression('isAuthenticated()')}">
+            <a th:href="@{/contatos}">Meus Contatos</a>
+            <form th:action="@{/logout}" method="post" style="display: inline;">
+                <button type="submit" class="btn-logout">Sair</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div th:fragment="mensagens">
+    <div class="alert alert-success" th:if="${mensagemSucesso}" th:text="${mensagemSucesso}"></div>
+    <div class="alert alert-error" th:if="${mensagemErro}" th:text="${mensagemErro}"></div>
+</div>
+
+<footer th:fragment="footer">
+    <div class="footer">
+        <p>Agenda Telefonica - JallCard</p>
+    </div>
+</footer>
+
+</body>
+</html>
