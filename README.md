@@ -38,8 +38,8 @@ mvn spring-boot:run
 - Aplicacao: http://localhost:8080
 - H2 Console: http://localhost:8080/h2-console
   - JDBC URL: `jdbc:h2:file:./data/agendadb`
-  - Usuario: `user`
-  - Senha: `123`
+  - Usuario: `sa`
+  - Senha: (vazio)
 
 ## Rodar Testes
 
