@@ -19,6 +19,10 @@ public class ContatoService {
         return contatoRepository.findAllByUser(user);
     }
 
+    public List<Contato> buscarPorNome(User user, String nome) {
+        return contatoRepository.findByUserAndNomeContainingIgnoreCase(user, nome);
+    }
+
     public Contato buscarPorId(Long id, User user) {
         return contatoRepository.findByIdAndUser(id, user)
                 .orElseThrow(() -> new IllegalArgumentException("Contato não encontrado"));
@@ -65,7 +69,5 @@ public class ContatoService {
         contatoRepository.delete(contato);
     }
 
-    public List<Contato> buscarPorNome(User user, String nome) {
-        return contatoRepository.findByUserAndNomeContainingIgnoreCase(user, nome);
-    }
+
 }

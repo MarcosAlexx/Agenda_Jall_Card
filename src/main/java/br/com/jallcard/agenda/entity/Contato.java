@@ -46,5 +46,4 @@ public class Contato {
     @NotEmpty(message = "Pelo menos um telefone é obrigatório")
     private List<Telefone> telefones = new ArrayList<>();
 
-
 }
