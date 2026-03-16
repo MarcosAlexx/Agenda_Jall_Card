@@ -61,6 +61,3 @@ src/main/java/br/com/jallcard/agenda/
 └── service/       # Regras de negocio
 ```
 
-## Autor
-
-Marcos - Teste Tecnico JallCard
